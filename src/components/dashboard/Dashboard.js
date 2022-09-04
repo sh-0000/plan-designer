@@ -1,9 +1,9 @@
 import Navbar from "../Navbar";
-import Searchbar from "./Searchbar";
+import Searchbar from "../Searchbar";
 import React, { useEffect, useState } from "react";
 import ProjectCards from "./ProjectCards";
 import { AddProject } from "./AddProject";
-import ProjectCard from "./ProjectCard";
+import { Box } from "@mui/system";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   const deleteProject = async (id) => {
     console.log("deleting", id);
-/*     await fetch(`http://localhost:3001/projects/${id}`, {
+    /*     await fetch(`http://localhost:3001/projects/${id}`, {
       method: "DELETE",
     }); */
     setProjects(projects.filter((project) => id != project.id));
@@ -47,7 +47,14 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="content">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "1rem",
+        }}
+      >
         <h1> Projects </h1>
         <AddProject />
         <Searchbar setQuery={setQuery} />
@@ -56,7 +63,7 @@ const Dashboard = () => {
           onDelete={deleteProject}
           onEdit={editProject}
         />
-      </div>
+      </Box>
     </>
   );
 };

@@ -17,7 +17,7 @@ const ProjectCard = ({ project, onDelete, onEdit }) => {
   });
   return (
     <>
-      <Card variant="outlined" sx={{ minWidth: 450 }}>
+      <Card variant="outlined">
         <Box
           sx={{
             position: "relative",

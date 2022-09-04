@@ -12,6 +12,27 @@
       "address": "Abcd",
       "schema": "./plan.png"
     }
+  ],
+  "categories": [
+    {
+      "id": 2,
+      "name": "Switch"
+    },
+    {
+      "id": 3,
+      "name": "Light"
+    },
+    {
+      "name": "Power",
+      "id": 4
+    },
+    {
+      "name": "Abcd",
+      "id": 5
+    },
+    {
+      "name": "Test",
+      "id": 6
+    }
   ]
 }
-

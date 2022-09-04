@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <AppBar sx={{ backgroundColor: "#004ba0" }} position="sticky">
+    <AppBar sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "#004ba0" }} position="sticky">
       <Toolbar variant="dense">
         <IconButton
           style={{ textDecoration: "none", color: "white" }}
@@ -36,7 +36,7 @@ const Navbar = () => {
             startIcon={<CollectionsIcon />}
             component={Link}
             to="/LegendLibrary"
-            style={{ textDecoration: "none", color: "white" }}
+            sx={{ textDecoration: "none", color: "white" }}
           >
             Legend Library
           </Button>
