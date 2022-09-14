@@ -1,16 +1,28 @@
 {
   "projects": [
     {
-      "id": 2,
+      "id": 1,
       "title": "Test",
       "address": "312 Test",
-      "schema": "./plan.png"
+      "schema": "/plan.png"
+    },
+    {
+      "id": 2,
+      "title": "Success",
+      "address": "Abcd",
+      "schema": "/plan.png"
+    },
+    {
+      "id": 3,
+      "title": "Test",
+      "address": "312 Test",
+      "schema": "/plan.png"
     },
     {
       "id": 4,
       "title": "Success",
       "address": "Abcd",
-      "schema": "./plan.png"
+      "schema": "/plan.png"
     }
   ],
   "categories": [
@@ -33,6 +45,29 @@
     {
       "name": "Test",
       "id": 6
+    }
+  ],
+  "icons": [
+    {
+      "id": 1,
+      "name": "Electrical Switch",
+      "category": "Switch",
+      "categoryid": 2,
+      "img": "electrical switch.png"
+    },
+    {
+      "id": 2,
+      "name": "Light Blub",
+      "category": "Light",
+      "categoryid": 3,
+      "img": "electrical switch.png"
+    },
+    {
+      "id": 3,
+      "name": "Control",
+      "category": "Test",
+      "categoryid": 6,
+      "img": "electrical switch.png"
     }
   ]
 }

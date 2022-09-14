@@ -8,16 +8,14 @@ import {
   Drawer,
   ListItem,
   IconButton,
+  Box,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import SettingsIcon from "@mui/icons-material/Settings";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import AddCategory from "./AddCategory";
-import { ConfirmDialog } from "../dialog/ConfirmDialog";
 import Category from "./Category";
 
-const CategoryList = ({ categories, onSubmit, onDelete }) => {
+const CategoryList = ({ categories, onSubmit, onDelete, onFilter }) => {
   const [visibility, setVisibility] = useState("hidden");
 
   const toggleVisibility = () => {
@@ -49,45 +47,20 @@ const CategoryList = ({ categories, onSubmit, onDelete }) => {
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => onFilter()}>
                 <ListItemText primary="All" />
               </ListItemButton>
             </ListItem>
             <Divider />
             {categories.map((category) => {
               return (
-                <Category onDelete={onDelete} visibility={visibility} category={category} />
-                /*  <div key={category.id}>
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemText primary={category.name} />
-                      <IconButton
-                        onClick={() =>
-                          setConfirmDialog({
-                            isOpen: true,
-                            title:
-                              'Are you sure you want to delete "' +
-                              category.name +
-                              '"',
-                            onConfirm: () => {
-                              onDeleteCategory(category.id);
-                            },
-                          })
-                        }
-                        sx={{
-                          visibility,
-                          "&:hover": {
-                            bgcolor: "error.main",
-                            color: "white",
-                          },
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider />
-                </div> */
+                <Category
+                  key={category.id}
+                  onDelete={onDelete}
+                  onFilter={onFilter}
+                  visibility={visibility}
+                  category={category}
+                />
               );
             })}
           </List>
@@ -108,4 +81,4 @@ const CategoryList = ({ categories, onSubmit, onDelete }) => {
     </>
   );
 };
-export default CategoryList
+export default CategoryList;

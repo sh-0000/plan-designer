@@ -4,20 +4,30 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Search, Clear } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 const Searchbar = ({ setQuery }) => {
+  const [inputValue, setInputValue] = useState();
+  useEffect(() => {
+    setQuery(inputValue);
+  }, [inputValue]);
   return (
-    <FormControl sx={{ m: 1, width: "40ch" }} variant="filled">
-      <InputLabel htmlFor="search-bar">Search</InputLabel>
+    <FormControl sx={{ minWidth: "35ch", width: "33%" }} variant="filled">
+      <InputLabel>Search</InputLabel>
       <FilledInput
-        id="search-bar"
-        endAdornment={
-          <InputAdornment position="end">
-            <SearchIcon />
+        value={inputValue}
+        startAdornment={
+          <InputAdornment position="start">
+            <Search />
           </InputAdornment>
         }
-        onChange={(e) => setQuery(e.target.value)}
+        endAdornment={
+          <InputAdornment position="end" onClick={() => setInputValue("")}>
+            {inputValue && <Clear />}
+          </InputAdornment>
+        }
+        onChange={(e) => setInputValue(e.target.value)}
       />
     </FormControl>
   );

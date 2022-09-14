@@ -3,7 +3,8 @@ import Searchbar from "../Searchbar";
 import React, { useEffect, useState } from "react";
 import ProjectCards from "./ProjectCards";
 import { AddProject } from "./AddProject";
-import { Box } from "@mui/system";
+import { Container } from "@mui/system";
+import { CssBaseline, Typography } from "@mui/material";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -40,30 +41,24 @@ const Dashboard = () => {
     setProjects(projects.filter((project) => id != project.id));
   };
 
-  const editProject = (id) => {
-    console.log("editing", id);
-  };
-
   return (
     <>
       <Navbar />
-      <Box
+      <CssBaseline />
+      <Container
+        maxWidth="xl"
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          gap: "1rem",
+          py: 4,
+          borderBottom: 1,
         }}
       >
-        <h1> Projects </h1>
         <AddProject />
+        <Typography variant="h4">Search Projects</Typography>
         <Searchbar setQuery={setQuery} />
-        <ProjectCards
-          projects={filteredResults}
-          onDelete={deleteProject}
-          onEdit={editProject}
-        />
-      </Box>
+      </Container>
+      <ProjectCards projects={filteredResults} onDelete={deleteProject} />
     </>
   );
 };

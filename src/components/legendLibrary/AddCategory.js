@@ -16,6 +16,12 @@ const AddCategory = ({ onSubmit }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(categoryName);
+    return handleClose();
+  };
+
   const [categoryName, setCategoryName] = useState();
 
   return (
@@ -31,12 +37,7 @@ const AddCategory = ({ onSubmit }) => {
           Add Project
         </BootstrapDialogTitle>
         <DialogContent>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSubmit(categoryName);
-            }}
-          >
+          <form onSubmit={(e) => handleSubmit(e)}>
             <FormControl
               required
               onChange={(e) => setCategoryName(e.target.value)}

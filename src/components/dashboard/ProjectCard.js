@@ -1,79 +1,84 @@
 import {
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { Box } from "@mui/system";
 import { ConfirmDialog } from "../dialog/ConfirmDialog";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const ProjectCard = ({ project, onDelete, onEdit }) => {
+const ProjectCard = ({ project, onDelete }) => {
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: "",
   });
   return (
     <>
-      <Card variant="outlined">
-        <Box
+      <Card
+        variant="elevation"
+        sx={{
+          position: "relative",
+          "&:hover": {
+            ".del-btn": { opacity: 1 },
+            ".edit-btn": { opacity: 1 },
+            ".card-img": { opacity: 0.5 },
+          },
+        }}
+      >
+        <CardMedia
+          className="card-img"
           sx={{
-            position: "relative",
-            "&:hover": {
-              ".del-btn": { opacity: 1 },
-              ".edit-btn": { opacity: 1 },
-              ".card-img": { opacity: 0.5 },
-            },
+            width: "100%",
+            transition: "0.3s ease",
           }}
-        >
-          <CardHeader
-            title={project.title}
-            action={
-              <IconButton
-                className="del-btn"
-                sx={{
-                  opacity: 0,
-                  boxShadow: 3,
-                  transition: "0.3s ease",
-                  "&:hover": {
-                    bgcolor: "error.main",
-                    color: "white",
-                  },
-                }}
-                onClick={() =>
-                  setConfirmDialog({
-                    isOpen: true,
-                    title:
-                      'Are you sure you want to delete "' + project.title + '"',
-                    onConfirm: () => {
-                      onDelete(project.id);
-                    },
-                  })
-                }
-              >
-                <Delete />
-              </IconButton>
-            }
-          />
-          <CardMedia
-            className="card-img"
+          component="img"
+          src={project.schema}
+        />
+        <CardContent sx={{ bgcolor: "#efefef" }}>
+          <Typography variant="h5">{project.title}</Typography>
+          <Typography variant="subtitle2">{project.address}</Typography>
+          <IconButton
+            className="del-btn"
             sx={{
+              position: "absolute",
+              top: "8px",
+              right: "8px",
+              opacity: 0,
+              boxShadow: 3,
               transition: "0.3s ease",
+              bgcolor: "white",
+              "&:hover": {
+                bgcolor: "error.main",
+                color: "white",
+              },
             }}
-            component="img"
-            height="350px"
-            image={project.schema}
-          />
+            onClick={() =>
+              setConfirmDialog({
+                isOpen: true,
+                title:
+                  'Are you sure you want to delete "' + project.title + '"',
+                onConfirm: () => {
+                  onDelete(project.id);
+                },
+              })
+            }
+          >
+            <Delete />
+          </IconButton>
           <IconButton
             className="edit-btn"
-            onClick={() => onEdit(project.id)}
+            component={Link}
+            to={`/editor/${project.id}`}
             sx={{
+              position: "absolute",
               opacity: 0,
               top: "50%",
               left: "50%",
-              position: "absolute",
               transform: "translate(-50%, -50%)",
               color: "white",
               bgcolor: "primary.main",
@@ -86,13 +91,8 @@ const ProjectCard = ({ project, onDelete, onEdit }) => {
           >
             <Edit />
           </IconButton>
-          <CardContent>{project.address}</CardContent>
-        </Box>
+        </CardContent>
       </Card>
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      />
     </>
   );
 };

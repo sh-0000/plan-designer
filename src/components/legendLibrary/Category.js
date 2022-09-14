@@ -7,7 +7,7 @@ import {
 import Delete from "@mui/icons-material/Delete";
 import { ConfirmDialog } from "../dialog/ConfirmDialog";
 import { useState } from "react";
-const Category = ({ category, visibility, onDelete }) => {
+const Category = ({ category, visibility, onDelete, onFilter }) => {
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: "",
@@ -15,7 +15,7 @@ const Category = ({ category, visibility, onDelete }) => {
   return (
     <>
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={() => onFilter(category.id)}>
           <ListItemText primary={category.name} />
           <IconButton
             onClick={() =>

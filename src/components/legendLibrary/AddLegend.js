@@ -1,33 +1,32 @@
+import { Add, PhotoCamera } from "@mui/icons-material";
 import {
   Button,
   Dialog,
-  DialogContent,
-  FormControl,
-  FilledInput,
-  InputLabel,
-  DialogContentText,
-  Grid,
   DialogActions,
+  DialogContent,
+  DialogContentText,
   Fab,
+  FilledInput,
+  FormControl,
+  Grid,
+  InputLabel,
 } from "@mui/material";
-import { Add, PhotoCamera } from "@mui/icons-material";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BootstrapDialogTitle } from "../dialog/BootstrapDialogTitle";
 
-export const AddProject = () => {
+const AddLegend = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    return setFormData({ title: "", address: "", selectedFile: null });
+    return setFormData({ name: "", selectedFile: null });
   };
 
   const previewRef = useRef();
 
   const [formData, setFormData] = useState({
-    title: "",
-    address: "",
+    name: "",
     selectedFile: null,
   });
 
@@ -43,20 +42,18 @@ export const AddProject = () => {
   return (
     <>
       <Fab
+        onClick={handleOpen}
         sx={{ position: "fixed", bottom: 16, right: 16 }}
         color="primary"
-        onClick={handleOpen}
       >
         <Add />
       </Fab>
       <Dialog
-        PaperProps={{
-          sx: { position: "fixed", top: "10%", m: 0, width: "auto" },
-        }}
+        PaperProps={{ sx: { position: "fixed", top: "10%", m: 0 } }}
         open={open}
       >
         <BootstrapDialogTitle onClose={handleClose}>
-          Add Project
+          Add Legend Icon
         </BootstrapDialogTitle>
         <DialogContent>
           <form
@@ -65,37 +62,24 @@ export const AddProject = () => {
               console.log(formData);
             }}
           >
-            <DialogContentText> Project Details </DialogContentText>
+            <DialogContentText> Icon Details </DialogContentText>
             <Grid container spacing={2} alignItems="center" direction="column">
               <Grid item>
                 <FormControl
                   required
                   onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
                   sx={{ width: "50ch" }}
                   variant="filled"
                 >
-                  <InputLabel htmlFor="title-input">Title</InputLabel>
-                  <FilledInput id="title-input" />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <FormControl
-                  required
-                  onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
-                  }
-                  sx={{ width: "50ch" }}
-                  variant="filled"
-                >
-                  <InputLabel htmlFor="address-input">Address</InputLabel>
-                  <FilledInput id="address-input" />
+                  <InputLabel htmlFor="name-input">Icon Name</InputLabel>
+                  <FilledInput id="name-input" />
                 </FormControl>
               </Grid>
               <Grid item>
                 {formData.selectedFile && (
-                  <img height={425} width={425} ref={previewRef} src="" />
+                  <img height={250} width={250} ref={previewRef} src="" />
                 )}
               </Grid>
               <Grid item>
@@ -140,3 +124,5 @@ export const AddProject = () => {
     </>
   );
 };
+
+export default AddLegend;
