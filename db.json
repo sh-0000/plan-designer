@@ -53,21 +53,42 @@
       "name": "Electrical Switch",
       "category": "Switch",
       "categoryid": 2,
-      "img": "electrical switch.png"
+      "img": "/electrical switch.png"
+    },
+    {
+      "id": 7,
+      "name": "Another Switch",
+      "category": "Switch",
+      "categoryid": 2,
+      "img": "/electrical switch.png"
+    },
+    {
+      "id": 9,
+      "name": "Electrical Switch",
+      "category": "Switch",
+      "categoryid": 2,
+      "img": "/electrical switch.png"
+    },
+    {
+      "id": 6,
+      "name": "Another Switch",
+      "category": "Switch",
+      "categoryid": 2,
+      "img": "/electrical switch.png"
     },
     {
       "id": 2,
       "name": "Light Blub",
       "category": "Light",
       "categoryid": 3,
-      "img": "electrical switch.png"
+      "img": "/electrical switch.png"
     },
     {
       "id": 3,
       "name": "Control",
       "category": "Test",
       "categoryid": 6,
-      "img": "electrical switch.png"
+      "img": "/electrical switch.png"
     }
   ]
 }
