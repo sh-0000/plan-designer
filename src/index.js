@@ -1,16 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
+import { FilterProvider } from "./context/filter_context";
+import { LibraryProvider } from "./context/library_context";
+import { ProjectsProvider } from "./context/projects_context";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ProjectsProvider>
+      <LibraryProvider>
+        <FilterProvider>
+          <App />
+        </FilterProvider>
+      </LibraryProvider>
+    </ProjectsProvider>
   </React.StrictMode>
 );
 

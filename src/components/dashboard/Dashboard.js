@@ -1,50 +1,34 @@
-import Navbar from "../Navbar";
 import Searchbar from "../Searchbar";
 import React, { useEffect, useState } from "react";
 import ProjectCards from "./ProjectCards";
-import { AddProject } from "./AddProject";
+import AddProjectButton from "./AddProject";
 import { Container } from "@mui/system";
-import { CssBaseline, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { useFilterContext } from "../../context/filter_context";
+import { useProjectsContext } from "../../context/projects_context";
 
 const Dashboard = () => {
-  const [projects, setProjects] = useState([]);
+  /* const { addProject, deleteProject } = useProjectsContext(); */
 
-  const [query, setQuery] = useState("");
+  const { filtered_projects: projects, updateProjectFilter } =
+    useFilterContext();
 
-  useEffect(() => {
-    const getProjects = async () => {
-      const resData = await fetchProjects();
-      setProjects(resData);
-    };
-    getProjects();
-  }, []);
+  const deleteProject = () => {};
 
-  const fetchProjects = async () => {
-    const res = await fetch("http://localhost:3001/projects");
-    const data = await res.json();
-    return data;
+  const addProject = (data) => {
+    console.log(data);
   };
 
-  const filteredResults = !query
-    ? projects
-    : projects.filter(
-        (project) =>
-          project.title.toLowerCase().includes(query.toLowerCase()) ||
-          project.address.toLowerCase().includes(query.toLowerCase())
-      );
-
-  const deleteProject = async (id) => {
+  /*   const deleteProject = async (id) => {
     console.log("deleting", id);
-    /*     await fetch(`http://localhost:3001/projects/${id}`, {
+      await fetch(`http://localhost:3001/projects/${id}`, {
       method: "DELETE",
-    }); */
-    setProjects(projects.filter((project) => id != project.id));
+    }); 
+     setProjects(projects.filter((project) => id != project.id));
   };
-
+ */
   return (
     <>
-      <Navbar />
-      <CssBaseline />
       <Container
         maxWidth="xl"
         sx={{
@@ -54,11 +38,11 @@ const Dashboard = () => {
           borderBottom: 1,
         }}
       >
-        <AddProject />
+        <AddProjectButton onAdd={addProject} />
         <Typography variant="h4">Search Projects</Typography>
-        <Searchbar setQuery={setQuery} />
+        <Searchbar onFilter={updateProjectFilter} />
       </Container>
-      <ProjectCards projects={filteredResults} onDelete={deleteProject} />
+      <ProjectCards projects={projects} onDelete={deleteProject} />
     </>
   );
 };

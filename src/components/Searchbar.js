@@ -7,10 +7,10 @@ import {
 import { Search, Clear } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
-const Searchbar = ({ setQuery }) => {
-  const [inputValue, setInputValue] = useState();
+const Searchbar = ({ onFilter }) => {
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
-    setQuery(inputValue);
+    onFilter({ type: "text", value: inputValue });
   }, [inputValue]);
   return (
     <FormControl sx={{ minWidth: "35ch", width: "33%" }} variant="filled">

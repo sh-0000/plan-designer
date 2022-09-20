@@ -5,50 +5,45 @@ import {
   Typography,
   Button,
   CssBaseline,
+  Box,
 } from "@mui/material";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import CollectionsIcon from "@mui/icons-material/Collections";
+import { HomeRounded, Collections } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <>
+    <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
       <AppBar
-        sx={{
-          backgroundColor: "#004ba0",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
         position="relative"
+        component="nav"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar variant="dense">
           <IconButton
+            size="large"
             edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
             component={Link}
             to="/"
-            sx={{ color: "white" }}
           >
-            <HomeRoundedIcon />
+            <HomeRounded />
           </IconButton>
-          <Typography
-            variant="h6"
-            color="inherit"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Plan Designer
           </Typography>
           <Button
-            startIcon={<CollectionsIcon />}
+            color="inherit"
+            startIcon={<Collections />}
             component={Link}
             to="/LegendLibrary"
-            sx={{ color: "white" }}
           >
-            Legend Library
+            Library
           </Button>
         </Toolbar>
       </AppBar>
-    </>
+    </Box>
   );
 };
 

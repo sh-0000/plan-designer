@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LeftPanel, RightPanel } from "./SidePanel";
 import Canvas from "./Canvas";
-import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import MenuBar from "./MenuBar";
+import { fabric } from "fabric";
 
 const Editor = () => {
   const { projectID } = useParams();
-  const [project, setProject] = useState("");
-  const [categories, setCategories] = useState("");
-  const [icons, setIcons] = useState("");
-
-  const boxRef = useRef();
+  const [project, setProject] = useState();
+  const [categories, setCategories] = useState();
+  const [icons, setIcons] = useState();
+  const [canvas, setCanvas] = useState();
 
   useEffect(() => {
     const getProject = async () => {
@@ -33,6 +33,10 @@ const Editor = () => {
     getIcons();
   }, []);
 
+  const isLoadingComplete = () => {
+    return project && categories && icons;
+  };
+
   const fetchData = async (req) => {
     const res = await fetch(req);
     const data = await res.json();
@@ -41,17 +45,17 @@ const Editor = () => {
 
   return (
     <>
-      <MenuBar project={project} />
-      <LeftPanel icons={icons} categories={categories} />
-      <RightPanel />
-      <Box
-        sx={{
-          mx: "16%",
-          my: "1%",
-        }}
-      >
-        <Canvas url={project.schema} />
-      </Box>
+      {isLoadingComplete() ? (
+        <>
+          <RightPanel />
+          <LeftPanel icons={icons} categories={categories} />
+          <Canvas setCanvas={setCanvas} />
+        </>
+      ) : (
+        <Typography align="center" variant="h6">
+          Loading...
+        </Typography>
+      )}
     </>
   );
 };

@@ -9,18 +9,18 @@ import {
   ListItem,
   IconButton,
   Box,
+  ListSubheader,
 } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useState } from "react";
-import AddCategory from "./AddCategory";
-import Category from "./Category";
+import { useFilterContext } from "../../context/filter_context";
+import { getUniqueValues } from "../utils/helpers";
 
-const CategoryList = ({ categories, onSubmit, onDelete, onFilter }) => {
-  const [visibility, setVisibility] = useState("hidden");
-
-  const toggleVisibility = () => {
-    visibility == "hidden" ? setVisibility("visible") : setVisibility("hidden");
-  };
+const CategoryList = ({ onFilter }) => {
+  const {
+    icon_filters: { text, category },
+    all_icons: icons,
+    updateIconFilter,
+  } = useFilterContext();
+  const categories = getUniqueValues(icons, "category");
   return (
     <>
       <Drawer
@@ -31,52 +31,32 @@ const CategoryList = ({ categories, onSubmit, onDelete, onFilter }) => {
         }}
       >
         <Toolbar />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 1,
-            mb: 1,
-          }}
+        <List
+          subheader={
+            <ListSubheader
+              sx={{ color: "#044474", fontSize: "18px" }}
+              component="div"
+            >
+              Category
+            </ListSubheader>
+          }
         >
-          <Typography variant="h5">Category</Typography>
-          <AddCategory onSubmit={onSubmit} />
-        </Box>
-        <Box sx={{ overflow: "auto" }}>
           <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => onFilter()}>
-                <ListItemText primary="All" />
-              </ListItemButton>
-            </ListItem>
-            <Divider />
-            {categories.map((category) => {
-              return (
-                <Category
-                  key={category.id}
-                  onDelete={onDelete}
-                  onFilter={onFilter}
-                  visibility={visibility}
-                  category={category}
-                />
-              );
-            })}
-          </List>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            position: "sticky",
-            top: "100%",
-          }}
-        >
-          <IconButton onClick={toggleVisibility}>
-            <SettingsIcon />
-          </IconButton>
-        </Box>
+          {categories.map((category, index) => (
+            <div key={index}>
+              <ListItem
+                onClick={() => onFilter({ type: "category", value: category })}
+                button
+              >
+                <ListItemText
+                  primaryTypographyProps={{ noWrap: true }}
+                  primary={category}
+                ></ListItemText>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
       </Drawer>
     </>
   );

@@ -93,6 +93,10 @@ const ProjectCard = ({ project, onDelete }) => {
           </IconButton>
         </CardContent>
       </Card>
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

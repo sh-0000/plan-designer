@@ -14,7 +14,7 @@ import { Add, PhotoCamera } from "@mui/icons-material";
 import { useState, useEffect, useRef } from "react";
 import { BootstrapDialogTitle } from "../dialog/BootstrapDialogTitle";
 
-export const AddProject = () => {
+const AddProjectButton = ({ onAdd }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -62,7 +62,7 @@ export const AddProject = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(formData);
+              onAdd(formData);
             }}
           >
             <DialogContentText> Project Details </DialogContentText>
@@ -140,3 +140,5 @@ export const AddProject = () => {
     </>
   );
 };
+
+export default AddProjectButton;
