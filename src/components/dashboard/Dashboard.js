@@ -1,5 +1,5 @@
+import React from "react";
 import Searchbar from "../Searchbar";
-import React, { useEffect, useState } from "react";
 import ProjectCards from "./ProjectCards";
 import AddProjectButton from "./AddProject";
 import { Container } from "@mui/system";
@@ -8,25 +8,15 @@ import { useFilterContext } from "../../context/filter_context";
 import { useProjectsContext } from "../../context/projects_context";
 
 const Dashboard = () => {
-  /* const { addProject, deleteProject } = useProjectsContext(); */
-
   const { filtered_projects: projects, updateProjectFilter } =
     useFilterContext();
 
-  const deleteProject = () => {};
+  const { deleteProject } = useProjectsContext();
 
   const addProject = (data) => {
     console.log(data);
   };
 
-  /*   const deleteProject = async (id) => {
-    console.log("deleting", id);
-      await fetch(`http://localhost:3001/projects/${id}`, {
-      method: "DELETE",
-    }); 
-     setProjects(projects.filter((project) => id != project.id));
-  };
- */
   return (
     <>
       <Container
