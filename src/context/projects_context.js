@@ -5,6 +5,10 @@ const initialState = {
   projects_loading: false,
   projects_error: false,
   projects: [],
+  single_project_loading: false,
+  single_project_error: false,
+  single_project: {},
+  isModalOpen: false,
 };
 
 const ProjectsContext = createContext();
@@ -22,6 +26,19 @@ export const ProjectsProvider = ({ children }) => {
       dispatch({ type: "GET_PROJECTS_REQUEST_ERROR" });
     }
   };
+  const fetchSingleProject = async (id) => {
+    dispatch({ type: "GET_SINGLE_PROJECT_REQUEST_START" });
+    try {
+      const response = await fetch(`http://localhost:3001/projects/${id}`);
+      const project = await response.json();
+      dispatch({
+        type: "GET_SINGLE_PROJECT_REQUEST_SUCCESS",
+        payload: project,
+      });
+    } catch (err) {
+      dispatch({ type: "GET_SINGLE_PROJECT_REQUEST_ERROR" });
+    }
+  };
 
   useEffect(() => {
     fetchProjects();
@@ -30,7 +47,7 @@ export const ProjectsProvider = ({ children }) => {
   const deleteProject = async (id) => {
     dispatch({ type: "DELETE_PROJECT_START" });
     try {
-/*       await fetch(`http://localhost:3001/projects/${id}`, {
+      /*       await fetch(`http://localhost:3001/projects/${id}`, {
         method: "DELETE",
       }); */
       dispatch({ type: "DELETE_PROJECT_SUCCESS", payload: id });
@@ -39,8 +56,18 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const toggleModal = (shouldOpen) => {
+    if (shouldOpen) {
+      dispatch({ type: "OPEN_MODAL" });
+    } else {
+      dispatch({ type: "CLOSE_MODAL" });
+    }
+  };
+
   return (
-    <ProjectsContext.Provider value={{ ...state, deleteProject }}>
+    <ProjectsContext.Provider
+      value={{ ...state, fetchSingleProject, deleteProject, toggleModal }}
+    >
       {children}
     </ProjectsContext.Provider>
   );

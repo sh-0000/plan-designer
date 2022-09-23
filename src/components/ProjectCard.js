@@ -1,14 +1,12 @@
 import {
   Card,
-  CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   IconButton,
   Typography,
 } from "@mui/material";
+import ConfirmDialog from "./forms/ConfirmDialog";
 import { Delete, Edit } from "@mui/icons-material";
-import { ConfirmDialog } from "../dialog/ConfirmDialog";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -20,7 +18,7 @@ const ProjectCard = ({ project, onDelete }) => {
   return (
     <>
       <Card
-        variant="elevation"
+        variant="outlined"
         sx={{
           position: "relative",
           "&:hover": {

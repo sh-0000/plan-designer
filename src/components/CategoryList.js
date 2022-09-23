@@ -1,25 +1,21 @@
 import {
   List,
-  ListItemButton,
   ListItemText,
   Divider,
-  Typography,
   Toolbar,
   Drawer,
   ListItem,
-  IconButton,
-  Box,
   ListSubheader,
 } from "@mui/material";
-import { useFilterContext } from "../../context/filter_context";
+import { useFilterContext } from "../context/filter_context";
 import { getUniqueValues } from "../utils/helpers";
 
 const CategoryList = ({ onFilter }) => {
   const {
-    icon_filters: { text, category },
     all_icons: icons,
-    updateIconFilter,
-  } = useFilterContext();
+    icon_filters: { category: selected },
+  } = useFilterContext(); 
+
   const categories = getUniqueValues(icons, "category");
   return (
     <>
@@ -45,6 +41,7 @@ const CategoryList = ({ onFilter }) => {
           {categories.map((category, index) => (
             <div key={index}>
               <ListItem
+                selected={category === selected}
                 onClick={() => onFilter({ type: "category", value: category })}
                 button
               >

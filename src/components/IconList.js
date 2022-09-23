@@ -23,8 +23,8 @@ const IconList = ({ icons }) => {
           ))}
         </ImageList>
       ) : (
-        <Typography sx={{ alignSelf: "center" }} variant="h4">
-          Nothing to see here...
+        <Typography variant="h6">
+          No matching results found...
         </Typography>
       )}
     </Container>

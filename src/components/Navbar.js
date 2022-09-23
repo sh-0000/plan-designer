@@ -17,7 +17,10 @@ const Navbar = () => {
       <AppBar
         position="relative"
         component="nav"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          bgcolor: "primary.main",
+        }}
       >
         <Toolbar variant="dense">
           <IconButton

@@ -1,33 +1,42 @@
+import { Add, PhotoCamera } from "@mui/icons-material";
 import {
+  Autocomplete,
   Button,
   Dialog,
-  DialogContent,
-  FormControl,
-  FilledInput,
-  InputLabel,
-  DialogContentText,
-  Grid,
   DialogActions,
+  DialogContent,
+  DialogContentText,
   Fab,
+  FilledInput,
+  FormControl,
+  Grid,
+  InputLabel,
+  TextField,
 } from "@mui/material";
-import { Add, PhotoCamera } from "@mui/icons-material";
-import { useState, useEffect, useRef } from "react";
-import { BootstrapDialogTitle } from "../dialog/BootstrapDialogTitle";
+import { useEffect, useRef, useState } from "react";
+import { getUniqueValues } from "../../utils/helpers";
+import { useFilterContext } from "../../context/filter_context";
+import { useProjectsContext } from "../../context/projects_context";
+import BootstrapDialogTitle from "./BootstrapDialogTitle";
 
-const AddProjectButton = ({ onAdd }) => {
-  const [open, setOpen] = useState(false);
+const AddIconForm = () => {
+  const { toggleModal, isModalOpen } = useProjectsContext(); //using this from projects context instead of rewriting it
+  const { all_icons: icons } = useFilterContext();
 
-  const handleOpen = () => setOpen(true);
+  const allCategories = getUniqueValues(icons, "category");
+  const categories = allCategories.filter((c) => c !== "All");
+
+  const handleOpen = () => toggleModal(true);
   const handleClose = () => {
-    setOpen(false);
-    return setFormData({ title: "", address: "", selectedFile: null });
+    toggleModal(false);
+    return setFormData({ name: "", selectedFile: null });
   };
 
   const previewRef = useRef();
 
   const [formData, setFormData] = useState({
-    title: "",
-    address: "",
+    name: "",
+    category: "",
     selectedFile: null,
   });
 
@@ -43,60 +52,68 @@ const AddProjectButton = ({ onAdd }) => {
   return (
     <>
       <Fab
+        onClick={handleOpen}
         sx={{ position: "fixed", bottom: 16, right: 16 }}
         color="primary"
-        onClick={handleOpen}
       >
         <Add />
       </Fab>
       <Dialog
-        PaperProps={{
-          sx: { position: "fixed", top: "10%", m: 0, width: "auto" },
-        }}
-        open={open}
+        PaperProps={{ sx: { position: "fixed", top: "10%", m: 0 } }}
+        open={isModalOpen}
       >
         <BootstrapDialogTitle onClose={handleClose}>
-          Add Project
+          Add Legend Icon
         </BootstrapDialogTitle>
         <DialogContent>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onAdd(formData);
+              console.log(formData);
             }}
           >
-            <DialogContentText> Project Details </DialogContentText>
+            <DialogContentText> Icon Details </DialogContentText>
             <Grid container spacing={2} alignItems="center" direction="column">
               <Grid item>
                 <FormControl
                   required
                   onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
-                  sx={{ width: "50ch" }}
+                  sx={{ width: 450 }}
                   variant="filled"
                 >
-                  <InputLabel htmlFor="title-input">Title</InputLabel>
-                  <FilledInput id="title-input" />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <FormControl
-                  required
-                  onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
-                  }
-                  sx={{ width: "50ch" }}
-                  variant="filled"
-                >
-                  <InputLabel htmlFor="address-input">Address</InputLabel>
-                  <FilledInput id="address-input" />
+                  <InputLabel htmlFor="name-input">Icon Name</InputLabel>
+                  <FilledInput id="name-input" />
                 </FormControl>
               </Grid>
               <Grid item>
                 {formData.selectedFile && (
-                  <img height={425} width={425} ref={previewRef} src="" />
+                  <img height={250} width={250} ref={previewRef} src="" />
                 )}
+              </Grid>
+              <Grid item>
+                <FormControl sx={{ minWidth: 300 }}>
+                  <Autocomplete
+                    freeSolo
+                    options={categories}
+                    value={formData.category}
+                    onChange={(e, value) => {
+                      setFormData({ ...formData, category: value });
+                    }}
+                    onInputChange={(e, value) => {
+                      setFormData({ ...formData, category: value });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="filled"
+                        {...params}
+                        label="Category"
+                        placeholder="Select or enter new a category..."
+                      />
+                    )}
+                  />
+                </FormControl>
               </Grid>
               <Grid item>
                 <FormControl>
@@ -141,4 +158,4 @@ const AddProjectButton = ({ onAdd }) => {
   );
 };
 
-export default AddProjectButton;
+export default AddIconForm;

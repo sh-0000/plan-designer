@@ -5,9 +5,9 @@ import {
   DialogContentText,
   Button,
 } from "@mui/material";
-import { BootstrapDialogTitle } from "./BootstrapDialogTitle";
+import BootstrapDialogTitle from "./BootstrapDialogTitle";
 
-export const ConfirmDialog = (props) => {
+const ConfirmDialog = (props) => {
   const { confirmDialog, setConfirmDialog } = props;
 
   const handleClose = () =>
@@ -39,3 +39,5 @@ export const ConfirmDialog = (props) => {
     </>
   );
 };
+
+export default ConfirmDialog;

@@ -9,6 +9,24 @@ const projects_reducer = (state, action) => {
     return { ...state, projects_loading: false, projects_error: true };
   }
 
+  if (action.type === "GET_SINGLE_PROJECT_REQUEST_START") {
+    return { ...state, single_project_loading: true };
+  }
+  if (action.type === "GET_SINGLE_PROJECT_REQUEST_SUCCESS") {
+    return {
+      ...state,
+      single_project: action.payload,
+      single_project_loading: false,
+    };
+  }
+  if (action.type === "GET_SINGLE_PROJECT_REQUEST_ERROR") {
+    return {
+      ...state,
+      single_project_loading: false,
+      single_project_error: true,
+    };
+  }
+
   if (action.type === "DELETE_PROJECT_START") {
     //SHOW CONFIRM MODAL
     return { ...state };
@@ -22,6 +40,12 @@ const projects_reducer = (state, action) => {
   if (action.type === "DELETE_PROJECT_ERROR") {
     //SHOW ERROR MSG
     return { ...state };
+  }
+  if (action.type === "OPEN_MODAL") {
+    return { ...state, isModalOpen: true };
+  }
+  if (action.type === "CLOSE_MODAL") {
+    return { ...state, isModalOpen: false };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };

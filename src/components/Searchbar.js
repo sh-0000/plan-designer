@@ -1,9 +1,4 @@
-import {
-  FilledInput,
-  FormControl,
-  InputAdornment,
-  InputLabel,
-} from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import { Search, Clear } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
@@ -13,23 +8,31 @@ const Searchbar = ({ onFilter }) => {
     onFilter({ type: "text", value: inputValue });
   }, [inputValue]);
   return (
-    <FormControl sx={{ minWidth: "35ch", width: "33%" }} variant="filled">
-      <InputLabel>Search</InputLabel>
-      <FilledInput
-        value={inputValue}
-        startAdornment={
+    <TextField
+      sx={{ minWidth: "35ch", width: "33%" }}
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value)}
+      variant="filled"
+      placeholder="Search..."
+      InputProps={{
+        startAdornment: (
           <InputAdornment position="start">
             <Search />
           </InputAdornment>
-        }
-        endAdornment={
-          <InputAdornment position="end" onClick={() => setInputValue("")}>
+        ),
+        endAdornment: (
+          <InputAdornment
+            sx={{
+              cursor: "pointer",
+            }}
+            position="end"
+            onClick={() => setInputValue("")}
+          >
             {inputValue && <Clear />}
           </InputAdornment>
-        }
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-    </FormControl>
+        ),
+      }}
+    />
   );
 };
 
