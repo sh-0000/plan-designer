@@ -9,6 +9,7 @@ import ConfirmDialog from "./forms/ConfirmDialog";
 import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
 
 const ProjectCard = ({ project, onDelete }) => {
   const [confirmDialog, setConfirmDialog] = useState({
@@ -24,19 +25,21 @@ const ProjectCard = ({ project, onDelete }) => {
           "&:hover": {
             ".del-btn": { opacity: 1 },
             ".edit-btn": { opacity: 1 },
-            ".card-img": { opacity: 0.5 },
+            ".card-img": { opacity: 0.8 },
           },
         }}
       >
-        <CardMedia
-          className="card-img"
-          sx={{
-            width: "100%",
-            transition: "0.3s ease",
-          }}
-          component="img"
-          src={project.schema}
-        />
+        <Box sx={{ bgcolor: "black" }}>
+          <CardMedia
+            className="card-img"
+            sx={{
+              width: "100%",
+              transition: "0.3s ease",
+            }}
+            component="img"
+            src={project.schema}
+          />
+        </Box>
         <CardContent sx={{ bgcolor: "#efefef" }}>
           <Typography variant="h5">{project.title}</Typography>
           <Typography variant="subtitle2">{project.address}</Typography>
@@ -55,6 +58,9 @@ const ProjectCard = ({ project, onDelete }) => {
                 color: "white",
               },
             }}
+            /* onClick opens the confirmDialog modal, selecting confirm on the 
+            modal will run the onConfirm function, which will pass data to 
+            the onDelete prop and run deleteProject in project_context*/
             onClick={() =>
               setConfirmDialog({
                 isOpen: true,

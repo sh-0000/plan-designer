@@ -22,6 +22,7 @@ export const FilterProvider = ({ children }) => {
   const { icons } = useLibraryContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  /* Load projects from projects context on load */
   useEffect(() => {
     dispatch({ type: "LOAD_PROJECTS", payload: projects });
   }, [projects]);

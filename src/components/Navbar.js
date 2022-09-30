@@ -19,7 +19,7 @@ const Navbar = () => {
         component="nav"
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          bgcolor: "primary.main",
+          bgcolor: "primary.dark",
         }}
       >
         <Toolbar variant="dense">

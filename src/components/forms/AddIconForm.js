@@ -97,7 +97,6 @@ const AddIconForm = () => {
                   <Autocomplete
                     freeSolo
                     options={categories}
-                    value={formData.category}
                     onChange={(e, value) => {
                       setFormData({ ...formData, category: value });
                     }}

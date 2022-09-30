@@ -14,9 +14,12 @@ const CategoryList = ({ onFilter }) => {
   const {
     all_icons: icons,
     icon_filters: { category: selected },
-  } = useFilterContext(); 
+  } = useFilterContext();
 
-  const categories = getUniqueValues(icons, "category");
+  const categories = getUniqueValues(
+    icons,
+    "category"
+  ); /* get all unique category values from icons */
   return (
     <>
       <Drawer
@@ -42,6 +45,8 @@ const CategoryList = ({ onFilter }) => {
             <div key={index}>
               <ListItem
                 selected={category === selected}
+                /* onClick passes object {type: 'category' and value: string}
+                to the filter_context using the onFilter prop */
                 onClick={() => onFilter({ type: "category", value: category })}
                 button
               >

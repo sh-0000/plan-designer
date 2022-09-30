@@ -33,11 +33,11 @@ const AddProjectForm = () => {
   });
 
   useEffect(() => {
-    /*  */
-    if (!formData.selectedFile) return;
+    if (!formData.selectedFile) return; //guard clause
+    /* file reader to create a image preview when uploading images*/
     var reader = new FileReader();
     reader.onloadend = () => {
-      previewRef.current.src = reader.result;
+      previewRef.current.src = reader.result; //update the src of the img element using the useRef hook
     };
     reader.readAsDataURL(formData.selectedFile);
   }, [formData.selectedFile]);
@@ -64,7 +64,7 @@ const AddProjectForm = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(formData);
+              console.log(formData); //need to add functionality
             }}
           >
             <DialogContentText> Project Details </DialogContentText>

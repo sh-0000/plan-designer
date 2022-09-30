@@ -9,7 +9,7 @@ import {
 const IconList = ({ icons }) => {
   return (
     <Container>
-      {icons.length > 0 ? (
+      {icons.length > 0 ? ( //Show a no matches msg if icons.length < 1
         <ImageList sx={{ width: "100%", height: "100%" }} cols={5}>
           {icons.map((icon) => (
             <ImageListItem key={icon.id}>
@@ -23,9 +23,7 @@ const IconList = ({ icons }) => {
           ))}
         </ImageList>
       ) : (
-        <Typography variant="h6">
-          No matching results found...
-        </Typography>
+        <Typography variant="h6">No matching results found...</Typography>
       )}
     </Container>
   );

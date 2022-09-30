@@ -1,31 +1,16 @@
-import { Box } from "@mui/system";
-import { fabric } from "fabric";
-import { useEffect, useState, useRef } from "react";
+import { Box } from "@mui/material";
+import { useEffect, useRef } from "react";
+import { useCanvasContext } from "../../context/canvas_context";
 
-const Canvas = ({ setCanvas, children }) => {
-  const canvasRef = useRef(null);
-
+const Canvas = ({ children }) => {
+  const { initCanvas } = useCanvasContext();
+  const canvasRef = useRef();
   useEffect(() => {
-    setCanvas(
-      new fabric.Canvas(canvasRef.current, {
-        renderOnAddRemove: true,
-      })
-    );
-  }, [setCanvas]);
-
+    initCanvas(canvasRef);
+  }, []);
   return (
-    <Box
-      /* ref={parentNode} */
-      sx={{
-        mx: "15vw",
-        my: "1vh",
-        height: "calc(98vh - 48px)",
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        style={{ border: "1px solid rgb(0, 0, 0, 0.12)" }}
-      ></canvas>
+    <Box sx={{ mx: "14%", height: "calc(100vh - 48px) !important" }}>
+      <canvas ref={canvasRef}></canvas>
       {children}
     </Box>
   );

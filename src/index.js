@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { CanvasProvider } from "./context/canvas_context";
 import { FilterProvider } from "./context/filter_context";
 import { LibraryProvider } from "./context/library_context";
 import { ProjectsProvider } from "./context/projects_context";
@@ -8,15 +9,17 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <ProjectsProvider>
-      <LibraryProvider>
-        <FilterProvider>
+  /* <React.StrictMode> */
+  <ProjectsProvider>
+    <LibraryProvider>
+      <FilterProvider>
+        <CanvasProvider>
           <App />
-        </FilterProvider>
-      </LibraryProvider>
-    </ProjectsProvider>
-  </React.StrictMode>
+        </CanvasProvider>
+      </FilterProvider>
+    </LibraryProvider>
+  </ProjectsProvider>
+  /*  </React.StrictMode> */
 );
 
 // If you want to start measuring performance in your app, pass a function

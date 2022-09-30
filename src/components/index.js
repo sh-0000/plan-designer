@@ -5,6 +5,7 @@ import ProjectCards from "./ProjectCards";
 import { AddProjectForm, AddIconForm } from "./forms";
 import CategoryList from "./CategoryList";
 import IconList from "./IconList";
+import { LeftPanel, RightPanel } from "./editor/SidePanel";
 
 export {
   Navbar,
@@ -15,4 +16,6 @@ export {
   CategoryList,
   IconList,
   AddIconForm,
+  LeftPanel,
+  RightPanel,
 };

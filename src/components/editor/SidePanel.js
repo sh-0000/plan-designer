@@ -8,21 +8,27 @@ import {
   ListItemText,
   ListItem,
   Collapse,
-  ImageList,
   ImageListItem,
+  Box,
+  imageListItemClasses,
 } from "@mui/material";
 import { useState } from "react";
+import { getUniqueValues } from "../../utils/helpers";
 
-export const LeftPanel = ({ categories, icons }) => {
+export const LeftPanel = ({ icons }) => {
+  const allCategories = getUniqueValues(icons, "category"); //get each unique category from the icons
+  const categories = allCategories.filter((c) => c !== "All"); //exclude 'All' from the side panel
+
   const [active, setActive] = useState("");
-  const handleActive = (id) => {
-    if (active === id) {
+  const handleActive = (index) => {
+    if (active === index) {
       return setActive("");
     }
-    return setActive(id);
+    return setActive(index);
   };
 
   const handleDragStart = (e) => {
+    //for dragging and dropping images
     e.dataTransfer.setData("id", e.target.id);
   };
 
@@ -46,53 +52,65 @@ export const LeftPanel = ({ categories, icons }) => {
         }
       >
         <Divider />
-        {categories &&
-          categories.map((category) => {
-            return (
-              <div key={category.id}>
-                <ListItem
-                  onClick={() => handleActive(category.id)}
-                  selected={category.id === active}
-                  button
-                >
-                  <ListItemText
-                    primaryTypographyProps={{ noWrap: true }}
-                    primary={category.name}
-                  />
-                  {active === category.id ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
+        {categories.map((category, index) => {
+          return (
+            <div key={index}>
+              <ListItem
+                onClick={() => handleActive(index)}
+                selected={index === active} //mui conditional styling prop
+                button
+              >
+                <ListItemText
+                  primaryTypographyProps={{ noWrap: true }}
+                  primary={category}
+                />
+                {
+                  active === index ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  ) /*Conditional rendering to check if active === index */
+                }
+              </ListItem>
 
-                <Collapse
-                  in={category.id === active}
-                  unmountOnExit
-                  timeout="auto"
+              <Collapse in={index === active} unmountOnExit timeout="auto">
+                <Box
+                  sx={{
+                    display: "grid",
+                    gap: "1px",
+                    py: "1px",
+                    gridTemplateColumns: {
+                      xs: "repeat(1, 1fr)",
+                      sm: "repeat(2, 1fr)",
+                      md: "repeat(3, 1fr)",
+                    },
+                    [`& .${imageListItemClasses.root}`]: {
+                      display: "flex",
+                      flexDirection: "column",
+                    },
+                  }}
                 >
-                  <ImageList cols={4} sx={{ width: "100%", height: "100%" }}>
-                    {icons &&
-                      icons.map((icon) => {
-                        if (icon.categoryid === category.id)
-                          return (
-                            <ImageListItem
-                              sx={{ width: 60, height: 60 }}
-                              key={icon.id}
-                            >
-                              <img
-                                onDragStart={(e) => handleDragStart(e)}
-                                id={icon.id}
-                                src={icon.img}
-                                alt={icon.name}
-                                loading="lazy"
-                                draggable
-                              />
-                            </ImageListItem>
-                          );
-                      })}
-                  </ImageList>
-                </Collapse>
-                <Divider />
-              </div>
-            );
-          })}
+                  {icons.map((icon) => {
+                    if (icon.category === category)
+                      return (
+                        <ImageListItem key={icon.id}>
+                          <img
+                            onDragStart={(e) => handleDragStart(e)}
+                            id={icon.id}
+                            src={`${icon.img}?w=248&fit=crop&auto=format`}
+                            alt={icon.name}
+                            loading="lazy"
+                            draggable
+                          />
+                        </ImageListItem>
+                      );
+                  })}
+                </Box>
+              </Collapse>
+              <Divider />
+            </div>
+          );
+        })}
       </List>
     </Drawer>
   );

@@ -6,12 +6,15 @@ const Searchbar = ({ onFilter }) => {
   const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     onFilter({ type: "text", value: inputValue });
-  }, [inputValue]);
+  }, [inputValue]); //dependency of inputValue ensures that useEffect will run everytime inputValue is changed
   return (
     <TextField
       sx={{ minWidth: "35ch", width: "33%" }}
       value={inputValue}
-      onChange={(e) => setInputValue(e.target.value)}
+      onChange={(e) =>
+        setInputValue(e.target.value)
+      } /* onChange updates the inputValue which passes 
+      data to the onFilter prop using the useEffect hook*/
       variant="filled"
       placeholder="Search..."
       InputProps={{
@@ -26,9 +29,15 @@ const Searchbar = ({ onFilter }) => {
               cursor: "pointer",
             }}
             position="end"
-            onClick={() => setInputValue("")}
+            onClick={
+              () => setInputValue("") /* a button to clear the search bar */
+            }
           >
-            {inputValue && <Clear />}
+            {
+              inputValue && (
+                <Clear />
+              ) /* Condtional rendering for the search bar*/
+            }
           </InputAdornment>
         ),
       }}
