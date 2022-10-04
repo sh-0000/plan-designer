@@ -1,20 +1,20 @@
 {
   "projects": [
     {
-      "id": 2,
-      "title": "Success",
+      "id": 1,
+      "title": "This",
       "address": "Abcd",
       "schema": "/plan.png"
     },
     {
-      "id": 3,
-      "title": "Test",
-      "address": "312 Test",
+      "id": 2,
+      "title": "Is",
+      "address": "Test",
       "schema": "/plan2.png"
     },
     {
-      "id": 1,
-      "title": "Test",
+      "id": 3,
+      "title": "Working",
       "address": "312 Test",
       "schema": "/plan.png"
     }
@@ -22,45 +22,39 @@
   "icons": [
     {
       "id": 1,
-      "name": "Electrical Switch",
+      "name": "Double Gang Switch",
       "category": "Switch",
-      "categoryid": 2,
-      "img": "/electrical switch.png"
-    },
-    {
-      "id": 7,
-      "name": "Another Switch",
-      "category": "Switch",
-      "categoryid": 2,
-      "img": "/electrical switch.png"
-    },
-    {
-      "id": 9,
-      "name": "Electrical Switch",
-      "category": "Switch",
-      "categoryid": 2,
-      "img": "/electrical switch.png"
-    },
-    {
-      "id": 6,
-      "name": "Another Switch",
-      "category": "Switch",
-      "categoryid": 2,
-      "img": "/electrical switch.png"
+      "img": "/item/DoubleGangSwitch.png"
     },
     {
       "id": 2,
-      "name": "Light Blub",
-      "category": "Light",
-      "categoryid": 3,
-      "img": "/electrical switch.png"
+      "name": "Single 2 Way Switch",
+      "category": "Switch",
+      "img": "/item/Single2WaySwitch.png"
     },
     {
       "id": 3,
-      "name": "Control",
-      "category": "Test",
-      "categoryid": 6,
-      "img": "/electrical switch.png"
+      "name": "Internet Socket",
+      "category": "Socket",
+      "img": "/item/InternetSocket.png"
+    },
+    {
+      "id": 4,
+      "name": "Telephone Socket",
+      "category": "Socket",
+      "img": "/item/TelephoneSocket.png"
+    },
+    {
+      "id": 5,
+      "name": "Picture Lamp",
+      "category": "Light",
+      "img": "/item/PictureLamp.png"
+    },
+    {
+      "id": 6,
+      "name": "Wall Bracket",
+      "category": "Unlisted",
+      "img": "/item/WallBracket.png"
     }
   ]
 }
