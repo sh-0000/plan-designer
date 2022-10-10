@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import useFirestore from "../firebasefunctions";
 import reducer from "../reducers/projects_reducer";
 
 const initialState = {
@@ -15,6 +16,7 @@ const ProjectsContext = createContext();
 
 export const ProjectsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { setCollection, uploadFile } = useFirestore();
 
   const fetchProjects = async () => {
     dispatch({ type: "GET_PROJECTS_REQUEST_START" });
@@ -44,6 +46,12 @@ export const ProjectsProvider = ({ children }) => {
     fetchProjects();
   }, []);
 
+  const addProject = async (data) => {
+    const { address, title, selectedFile } = data;
+    const filePath = await uploadFile("projects", selectedFile);
+    setCollection("projects", { address, title, schema: filePath });
+  };
+
   const deleteProject = async (id) => {
     dispatch({ type: "DELETE_PROJECT_START" });
     try {
@@ -66,7 +74,13 @@ export const ProjectsProvider = ({ children }) => {
 
   return (
     <ProjectsContext.Provider
-      value={{ ...state, fetchSingleProject, deleteProject, toggleModal }}
+      value={{
+        ...state,
+        fetchSingleProject,
+        addProject,
+        deleteProject,
+        toggleModal,
+      }}
     >
       {children}
     </ProjectsContext.Provider>

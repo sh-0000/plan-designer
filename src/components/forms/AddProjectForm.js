@@ -16,7 +16,7 @@ import BootstrapDialogTitle from "./BootstrapDialogTitle";
 import { useProjectsContext } from "../../context/projects_context";
 
 const AddProjectForm = () => {
-  const { toggleModal, isModalOpen } = useProjectsContext();
+  const { toggleModal, isModalOpen, addProject } = useProjectsContext();
 
   const handleOpen = () => toggleModal(true);
   const handleClose = () => {
@@ -64,7 +64,7 @@ const AddProjectForm = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(formData); //need to add functionality
+              addProject(formData); //need to add functionality
             }}
           >
             <DialogContentText> Project Details </DialogContentText>
