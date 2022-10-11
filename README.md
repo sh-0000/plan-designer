@@ -17,7 +17,9 @@ Reactjs, MaterialUI and Fabricjs.
     - Saving to the database (WIP)
 
 * Firebase (WIP)
-* Uploading floor maps and icons  (WIP)
+    - Uploading & deleting projects [x]
+    - Uploading & deleting icons [x]
+    - Prevent multiple requests / restrict server calls []
 
 ## Project Screenshots
 # Dashboard Page

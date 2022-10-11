@@ -26,14 +26,17 @@ const ProjectCard = ({ project, onDelete }) => {
             ".del-btn": { opacity: 1 },
             ".edit-btn": { opacity: 1 },
             ".card-img": { opacity: 0.8 },
+            "#box": { bgcolor: "hsl(0 0% 0%)" },
           },
         }}
       >
-        <Box sx={{ bgcolor: "black" }}>
+        <Box id="box" sx={{ bgcolor: "hsl(0 0% 100%)" }}>
           <CardMedia
             className="card-img"
             sx={{
               width: "100%",
+              aspectRatio: "4 / 3",
+              objectFit: "cover",
               transition: "0.3s ease",
             }}
             component="img"
@@ -81,9 +84,9 @@ const ProjectCard = ({ project, onDelete }) => {
             sx={{
               position: "absolute",
               opacity: 0,
-              top: "50%",
+              top: "40%",
               left: "50%",
-              transform: "translate(-50%, -50%)",
+              transform: "translate(-50%, -40%)",
               color: "white",
               bgcolor: "primary.main",
               transition: "0.3s ease",

@@ -9,7 +9,7 @@ import {
   Loading,
 } from "../components";
 const LibraryPage = () => {
-  const { icons_loading: loading, icons_error: error } = useLibraryContext();
+  const { icons_loading: loading, icons_error: error, deleteIcon } = useLibraryContext();
   const { filtered_icons: icons, updateIconFilter } = useFilterContext();
 
   if (loading) {
@@ -40,7 +40,7 @@ const LibraryPage = () => {
         <Searchbar onFilter={updateIconFilter} />
       </Box>
       <Box sx={{ ml: "14%" }}>
-        <IconList icons={icons} />
+        <IconList icons={icons} onDelete={deleteIcon}/>
       </Box>
     </Box>
   );

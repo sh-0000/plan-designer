@@ -3,6 +3,9 @@ import {
   getDocs,
   collection,
   addDoc,
+  getDoc,
+  doc,
+  deleteDoc,
 } from "firebase/firestore/lite";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app from "./firebase";
@@ -13,24 +16,34 @@ const storage = getStorage(app);
 const storageRef = ref(storage);
 
 const useFirestore = () => {
-  async function getCollection(colRef) {
-    const snapshot = await getDocs(collection(db, colRef));
-    const data = snapshot.docs.map((doc) => doc.data());
+  async function getCollection(collectionRef) {
+    const snapshot = await getDocs(collection(db, collectionRef));
+    const data = snapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
     return data;
   }
-
-  async function setCollection(colRef, data) {
-    console.log(data);
-    const res = await addDoc(collection(db, colRef), {
-      ...data,
-    });
+  async function getDocument(collectionRef, id) {
+    const snapshot = await getDoc(doc(db, collectionRef, id));
+    return { id: id, ...snapshot.data() };
   }
 
-  async function uploadFile(colRef, file) {
+  async function setCollection(collectionRef, data) {
+    const res = await addDoc(collection(db, collectionRef), {
+      ...data,
+    });
+    return { id: res.id, ...data };
+  }
+
+  async function removeDocument(collectionRef, id) {
+    await deleteDoc(doc(db, collectionRef, id));
+  }
+
+  async function uploadFile(collectionRef, file) {
     const fileName = file.name + " " + Date.now();
-    const destRef = ref(storageRef, colRef);
+    const destRef = ref(storageRef, collectionRef);
     const fileRef = ref(destRef, fileName);
-    const uploadTask = uploadBytes(destRef, file).then(
+    const uploadTask = uploadBytes(fileRef, file).then(
       (snapshot) => {
         console.log("upload successful");
         return getDownloadURL(snapshot.ref);
@@ -42,7 +55,13 @@ const useFirestore = () => {
     return uploadTask;
   }
 
-  return { getCollection, setCollection, uploadFile };
+  return {
+    getCollection,
+    getDocument,
+    setCollection,
+    removeDocument,
+    uploadFile,
+  };
 };
 
 export default useFirestore;

@@ -9,7 +9,7 @@ const Searchbar = ({ onFilter }) => {
   }, [inputValue]); //dependency of inputValue ensures that useEffect will run everytime inputValue is changed
   return (
     <TextField
-      sx={{ minWidth: "35ch", width: "33%" }}
+      sx={{ width: "min(474px, 100%)" }}
       value={inputValue}
       onChange={(e) =>
         setInputValue(e.target.value)

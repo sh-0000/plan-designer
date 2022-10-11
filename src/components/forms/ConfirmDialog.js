@@ -32,7 +32,7 @@ const ConfirmDialog = (props) => {
             color="error"
             variant="contained"
           >
-            Yes, Delete it
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>

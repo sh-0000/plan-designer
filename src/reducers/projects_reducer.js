@@ -27,10 +27,21 @@ const projects_reducer = (state, action) => {
     };
   }
 
-  if (action.type === "DELETE_PROJECT_START") {
-    //SHOW CONFIRM MODAL
+  if (action.type === "ADD_PROJECT_SUCCESS") {
+    const project = action.payload;
+    const { projects } = state;
+    return {
+      ...state,
+      isModalOpen: false, //close the modal
+      projects: [...projects, { ...project }], //push the new project data to the state
+    };
+  }
+
+  if (action.type === "ADD_PROJECT_FAILED") {
+    console.log("failed to add project");
     return { ...state };
   }
+
   if (action.type === "DELETE_PROJECT_SUCCESS") {
     const id = action.payload;
     let { projects } = state;
@@ -38,7 +49,7 @@ const projects_reducer = (state, action) => {
     return { ...state, projects: projects };
   }
   if (action.type === "DELETE_PROJECT_ERROR") {
-    //SHOW ERROR MSG
+    console.log("Failed to delete project");
     return { ...state };
   }
   if (action.type === "OPEN_MODAL") {

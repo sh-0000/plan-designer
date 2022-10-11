@@ -18,10 +18,11 @@ import { getUniqueValues } from "../../utils/helpers";
 import { useFilterContext } from "../../context/filter_context";
 import { useProjectsContext } from "../../context/projects_context";
 import BootstrapDialogTitle from "./BootstrapDialogTitle";
+import { useLibraryContext } from "../../context/library_context";
 
 const AddIconForm = () => {
-  const { toggleModal, isModalOpen } = useProjectsContext(); //using this from projects context instead of rewriting it
   const { all_icons: icons } = useFilterContext();
+  const { addIcon, toggleModal, isModalOpen } = useLibraryContext();
 
   const allCategories = getUniqueValues(icons, "category");
   const categories = allCategories.filter((c) => c !== "All");
@@ -29,7 +30,7 @@ const AddIconForm = () => {
   const handleOpen = () => toggleModal(true);
   const handleClose = () => {
     toggleModal(false);
-    return setFormData({ name: "", selectedFile: null });
+    setFormData({ name: "", selectedFile: null });
   };
 
   const previewRef = useRef();
@@ -59,7 +60,9 @@ const AddIconForm = () => {
         <Add />
       </Fab>
       <Dialog
-        PaperProps={{ sx: { position: "fixed", top: "10%", m: 0 } }}
+        PaperProps={{
+          sx: { position: "fixed", top: "10%", m: 0, width: "min(50ch, 100%)" },
+        }}
         open={isModalOpen}
       >
         <BootstrapDialogTitle onClose={handleClose}>
@@ -69,31 +72,31 @@ const AddIconForm = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(formData);
+              addIcon(formData);
             }}
           >
             <DialogContentText> Icon Details </DialogContentText>
-            <Grid container spacing={2} alignItems="center" direction="column">
+            <Grid container spacing={2} direction="column">
               <Grid item>
                 <FormControl
                   required
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  sx={{ width: 450 }}
+                  sx={{ width: "100%" }}
                   variant="filled"
                 >
                   <InputLabel htmlFor="name-input">Icon Name</InputLabel>
                   <FilledInput id="name-input" />
                 </FormControl>
               </Grid>
-              <Grid item>
+              <Grid item alignSelf="center">
                 {formData.selectedFile && (
-                  <img height={250} width={250} ref={previewRef} src="" />
+                  <img width="100%" ref={previewRef} src="" />
                 )}
               </Grid>
               <Grid item>
-                <FormControl sx={{ minWidth: 300 }}>
+                <FormControl sx={{ width: "100%" }}>
                   <Autocomplete
                     freeSolo
                     options={categories}

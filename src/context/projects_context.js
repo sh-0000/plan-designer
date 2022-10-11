@@ -16,13 +16,19 @@ const ProjectsContext = createContext();
 
 export const ProjectsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { setCollection, uploadFile } = useFirestore();
+
+  const {
+    getCollection,
+    getDocument,
+    setCollection,
+    removeDocument,
+    uploadFile,
+  } = useFirestore();
 
   const fetchProjects = async () => {
     dispatch({ type: "GET_PROJECTS_REQUEST_START" });
     try {
-      const response = await fetch("http://localhost:3001/projects");
-      const projects = await response.json();
+      const projects = await getCollection("projects");
       dispatch({ type: "GET_PROJECTS_REQUEST_SUCCESS", payload: projects });
     } catch (err) {
       dispatch({ type: "GET_PROJECTS_REQUEST_ERROR" });
@@ -31,8 +37,7 @@ export const ProjectsProvider = ({ children }) => {
   const fetchSingleProject = async (id) => {
     dispatch({ type: "GET_SINGLE_PROJECT_REQUEST_START" });
     try {
-      const response = await fetch(`http://localhost:3001/projects/${id}`);
-      const project = await response.json();
+      const project = await getDocument("projects", id);
       dispatch({
         type: "GET_SINGLE_PROJECT_REQUEST_SUCCESS",
         payload: project,
@@ -48,16 +53,22 @@ export const ProjectsProvider = ({ children }) => {
 
   const addProject = async (data) => {
     const { address, title, selectedFile } = data;
-    const filePath = await uploadFile("projects", selectedFile);
-    setCollection("projects", { address, title, schema: filePath });
+    try {
+      const filePath = await uploadFile("projects", selectedFile);
+      const res = await setCollection("projects", {
+        address,
+        title,
+        schema: filePath,
+      });
+      dispatch({ type: "ADD_PROJECT_SUCCESS", payload: res });
+    } catch (err) {
+      console.log("failed to add");
+    }
   };
 
   const deleteProject = async (id) => {
-    dispatch({ type: "DELETE_PROJECT_START" });
     try {
-      /*       await fetch(`http://localhost:3001/projects/${id}`, {
-        method: "DELETE",
-      }); */
+      await removeDocument("projects", id);
       dispatch({ type: "DELETE_PROJECT_SUCCESS", payload: id });
     } catch (err) {
       dispatch({ type: "DELETE_PROJECT_ERROR" });

@@ -21,7 +21,7 @@ const AddProjectForm = () => {
   const handleOpen = () => toggleModal(true);
   const handleClose = () => {
     toggleModal(false);
-    return setFormData({ title: "", address: "", selectedFile: null });
+    setFormData({ title: "", address: "", selectedFile: null });
   };
 
   const previewRef = useRef();
@@ -53,7 +53,7 @@ const AddProjectForm = () => {
       </Fab>
       <Dialog
         PaperProps={{
-          sx: { position: "fixed", top: "10%", m: 0, width: "auto" },
+          sx: { position: "fixed", top: "10%", m: 0, width: "min(50ch, 100%)" },
         }}
         open={isModalOpen}
       >
@@ -68,14 +68,14 @@ const AddProjectForm = () => {
             }}
           >
             <DialogContentText> Project Details </DialogContentText>
-            <Grid container spacing={2} alignItems="center" direction="column">
+            <Grid container spacing={2} direction="column">
               <Grid item>
                 <FormControl
                   required
                   onChange={(e) =>
                     setFormData({ ...formData, title: e.target.value })
                   }
-                  sx={{ width: "50ch" }}
+                  sx={{ width: "100%" }}
                   variant="filled"
                 >
                   <InputLabel htmlFor="title-input">Title</InputLabel>
@@ -88,16 +88,16 @@ const AddProjectForm = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
-                  sx={{ width: "50ch" }}
+                  sx={{ width: "100%" }}
                   variant="filled"
                 >
                   <InputLabel htmlFor="address-input">Address</InputLabel>
                   <FilledInput id="address-input" />
                 </FormControl>
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 {formData.selectedFile && (
-                  <img height={425} width={425} ref={previewRef} src="" />
+                  <img width="100%" ref={previewRef} src="" />
                 )}
               </Grid>
               <Grid item>

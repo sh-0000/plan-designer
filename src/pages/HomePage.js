@@ -11,9 +11,11 @@ import {
 const HomePage = () => {
   const { filtered_projects: projects, updateProjectFilter } =
     useFilterContext();
-  /* const { toggleFormModal, deleteProject } = useProjectsContext(); //add a form modal */
-  const { projects_loading: loading, projects_error: error } =
-    useProjectsContext();
+  const {
+    projects_loading: loading,
+    projects_error: error,
+    deleteProject,
+  } = useProjectsContext();
 
   if (loading) {
     return <Loading />;
@@ -25,7 +27,7 @@ const HomePage = () => {
     <Container sx={{ py: 4 }} maxWidth="xl">
       <Searchbar onFilter={updateProjectFilter} />
       <Divider sx={{ my: 4 }} />
-      <ProjectCards projects={projects} />
+      <ProjectCards projects={projects} onDelete={deleteProject} />
       <AddProjectForm />
     </Container>
   );
