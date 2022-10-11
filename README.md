@@ -8,6 +8,10 @@ icons to create electrical floor plans.
 ## Frameworks and Libraries
 Reactjs, MaterialUI and Fabricjs.
 
+## Demo on Netlify
+
+[Plan designer App](https://plan-designer.netlify.app/).
+
 ## Project Status
 * Editor Functions (WIP)
     - Updating the Canvas background with the floor map (limited functionality)
@@ -17,9 +21,9 @@ Reactjs, MaterialUI and Fabricjs.
     - Saving to the database (WIP)
 
 * Firebase (WIP)
-    - Uploading & deleting projects [x]
-    - Uploading & deleting icons [x]
-    - Prevent multiple requests / restrict server calls []
+    - Uploading & deleting projects :heavy_check_mark:
+    - Uploading & deleting icons :heavy_check_mark:
+    - Prevent multiple requests / restrict server calls :heavy_check_mark:
 
 ## Project Screenshots
 # Dashboard Page
