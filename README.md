@@ -23,7 +23,7 @@ Reactjs, MaterialUI and Fabricjs.
 * Firebase (WIP)
     - Uploading & deleting projects :heavy_check_mark:
     - Uploading & deleting icons :heavy_check_mark:
-    - Prevent multiple requests / restrict server calls :heavy_check_mark:
+    - Prevent multiple requests / restrict server calls :x:
 
 ## Project Screenshots
 # Dashboard Page
@@ -43,8 +43,7 @@ Clone this repository
 Install the dependencies:
 `npm install`
 
-Start the mock backend server:
-`npm run server`
+Requires firebase connection
 
 Start the dev server:
 `npm start`
