@@ -2,7 +2,7 @@
 
 Plan Designer
 
-An applicaiton that allows to upload floor maps and electrical 
+An application that allow users to upload floor maps and electrical 
 icons to create electrical floor plans.
 
 ## Frameworks and Libraries
